@@ -1,0 +1,196 @@
+/* ══════════════════════════════════════════════════════════════
+   ANIMATIONS — cursor, particles, scroll reveal, typing
+══════════════════════════════════════════════════════════════ */
+
+/* ── Custom cursor ───────────────────────────────────────────── */
+* { cursor: none !important; }
+
+.cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: difference;
+}
+
+.cursor__dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+.cursor__ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 99998;
+  transition: width 0.3s cubic-bezier(0.4,0,0.2,1),
+              height 0.3s cubic-bezier(0.4,0,0.2,1),
+              opacity 0.3s,
+              border-color 0.3s;
+  opacity: 0.6;
+}
+
+.cursor--hover .cursor__dot {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+}
+.cursor--hover .cursor__ring {
+  width: 56px;
+  height: 56px;
+  opacity: 0.3;
+  border-color: var(--accent);
+}
+
+.cursor--click .cursor__dot {
+  width: 6px;
+  height: 6px;
+}
+.cursor--click .cursor__ring {
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+}
+
+/* ── Canvas particles ────────────────────────────────────────── */
+#particles-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+}
+
+/* ── Scroll reveal ───────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.reveal--left {
+  transform: translateX(-40px);
+}
+.reveal.reveal--right {
+  transform: translateX(40px);
+}
+.reveal.reveal--scale {
+  transform: scale(0.9);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays for children */
+.reveal-stagger > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger > *:nth-child(2) { transition-delay: 0.15s; }
+.reveal-stagger > *:nth-child(3) { transition-delay: 0.25s; }
+.reveal-stagger > *:nth-child(4) { transition-delay: 0.35s; }
+.reveal-stagger > *:nth-child(5) { transition-delay: 0.45s; }
+.reveal-stagger > *:nth-child(6) { transition-delay: 0.55s; }
+
+/* ── Typing cursor blink ─────────────────────────────────────── */
+.typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background: var(--accent);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 0.9s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ── Glitch effect on hero name ──────────────────────────────── */
+.glitch {
+  position: relative;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+.glitch::before {
+  color: var(--accent);
+  animation: glitch-1 3.5s infinite linear;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+.glitch::after {
+  color: var(--accent-2);
+  animation: glitch-2 3.5s infinite linear;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+@keyframes glitch-1 {
+  0%, 90%, 100% { transform: none; opacity: 0; }
+  91%            { transform: translate(-3px, 1px); opacity: 0.7; }
+  93%            { transform: translate(3px, -1px); opacity: 0.7; }
+  95%            { transform: translate(-2px, 2px); opacity: 0.7; }
+  97%            { transform: none; opacity: 0; }
+}
+@keyframes glitch-2 {
+  0%, 90%, 100% { transform: none; opacity: 0; }
+  92%            { transform: translate(3px, -2px); opacity: 0.7; }
+  94%            { transform: translate(-3px, 1px); opacity: 0.7; }
+  96%            { transform: translate(2px, -1px); opacity: 0.7; }
+  98%            { transform: none; opacity: 0; }
+}
+
+/* ── Magnetic button effect ──────────────────────────────────── */
+.btn {
+  transition: transform 0.2s cubic-bezier(0.4,0,0.2,1),
+              background 0.25s, color 0.25s, border-color 0.25s,
+              box-shadow 0.25s !important;
+}
+.btn:hover {
+  box-shadow: 0 8px 24px rgba(201, 79, 30, 0.25);
+}
+
+
+/* skill bar width is controlled via --w CSS var in index.astro */
+
+/* ── Section label pulse ─────────────────────────────────────── */
+.section-label {
+  animation: label-slide 0.6s cubic-bezier(0.4,0,0.2,1) both;
+}
+@keyframes label-slide {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Card tilt (subtle 3D) ───────────────────────────────────── */
+.card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ── Mobile: disable cursor ──────────────────────────────────── */
+@media (hover: none) {
+  * { cursor: auto !important; }
+  .cursor__dot, .cursor__ring { display: none; }
+}
+

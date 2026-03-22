@@ -1,0 +1,716 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { translations } from '../i18n/translations.ts';
+const t = translations.es;
+const certs = {
+  label: '05 · certificaciones',
+  title1: 'Cursos &',
+  title2: 'certificaciones',
+  verify: 'Ver credencial',
+  items: [
+    { icon:'🔒', year:'2026 · En curso', title:'Certificado profesional de Ciberseguridad de Google', issuer:'Coursera · Google', url:'https://www.coursera.org/professional-certificates/google-cybersecurity'},
+    { icon:'🤖', year:'2025', title:'Curso de Iniciación al Desarrollo con IA', issuer:'BIG School', url:'https://www.linkedin.com/in/gonzalo-cldm/details/certifications/1759951450814/single-media-viewer?type=DOCUMENT&profileId=ACoAADeS8acBXkNPvPeM-9ilNegkypvUcYYsC7c&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3Be3wsNnMeTKe7zhmbJAHq%2Bw%3D%3D' },
+    { icon:'🛡️', year:'2024', title:'Hacking Ético y Ciberseguridad', issuer:'Udemy', url:'https://www.udemy.com/certificate/UC-6121d90c-305a-48e1-a1b9-1dccfdca6067/' },
+    { icon:'☕', year:'2024', title:'Spring Boot desde Cero', issuer:'Udemy', url:'https://ude.my/UC-cf7f54d6-1521-480a-ad42-6a5655a3abcf' },
+    { icon:'📱', year:'2022', title:'Curso de Flutter y Dart', issuer:'Udemy · Academind', url:'' },
+  ],
+}
+
+const expLogos = [
+  { img: '/images/logo-caixabank.png',  fallback: 'CB' },
+  { img: '/images/misintaxis.png', fallback: 'MS' },
+  { img: '/images/logo-um.png',         fallback: 'UM' },
+  { img: '/images/logo-cole.png',        fallback: 'SM' },
+]
+const eduLogos = [
+  { img: '/images/logo-um.png',  fallback: 'UM' },
+  { img: '/images/logo-cole.png', fallback: 'SM' },
+]
+---
+<Layout title="Gonzalo · Software Engineer">
+
+  <!-- ══════════════════════════════════════════════ HERO -->
+  <section class="hero" id="top">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <p class="hero__greeting mono fade-up" data-i18n="hero.greeting">{t.hero.greeting}</p>
+        <h1 class="hero__name fade-up delay-1">Gonzalo<br/><em>Cánovas López de Molina</em></h1>
+        <p class="hero__role fade-up delay-2">
+          <span id="typingText"></span><span class="typing-cursor"></span>
+        </p>
+        <p class="hero__bio fade-up delay-3" data-i18n="hero.bio">{t.hero.bio}</p>
+        <div class="hero__cta fade-up delay-4">
+          <a href="#projects" class="btn btn--primary" data-i18n="hero.cta_primary">{t.hero.cta_primary}</a>
+          <a href="#contact"  class="btn btn--ghost"   data-i18n="hero.cta_ghost">{t.hero.cta_ghost}</a>
+        </div>
+      </div>
+      <div class="hero__visual fade-up delay-2">
+        <div class="hero__avatar">
+  <img src="/images/yo.png" alt="Gonzalo" style="width:100%;height:100%;object-fit:cover;" />
+</div>
+        <div class="hero__status">
+          <span class="status-dot"></span>
+          <span class="mono" style="font-size:0.75rem" data-i18n="hero.status">{t.hero.status}</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__code mono">
+      <span class="c-kw">const</span> dev = {'{'}
+        name: <span class="c-str">"Gonzalo"</span>,
+        role: <span class="c-str">"Software Engineer"</span>,
+        coffee: <span class="c-bool">true</span>
+      {'}'};
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ══════════════════════════════════════════════ ABOUT -->
+  <section class="section" id="about">
+    <div class="container">
+      <span class="section-label" data-i18n="about.label">{t.about.label}</span>
+      <h2 class="section-title">
+        <span data-i18n="about.title1">{t.about.title1}</span><br/>
+        <em data-i18n="about.title2">{t.about.title2}</em>
+      </h2>
+      <div class="about__grid">
+        <div class="about__text">
+          <p data-i18n="about.p1">{t.about.p1}</p>
+          <p data-i18n="about.p2">{t.about.p2}</p>
+          <div class="about__chips">
+            {t.about.tags.map((tag, i) => (
+              <span class="tag" data-i18n={`about.tags.${i}`}>{tag}</span>
+            ))}
+          </div>
+        </div>
+        <div class="about__facts">
+          {[['2+',0],['4',1],['8+',2],['∞',3]].map(([n, i]) => (
+            <div class="fact-card card">
+              <span class="fact-number mono">{n}</span>
+              <span class="fact-label" data-i18n={`about.facts.${i}`}>{t.about.facts[i as number]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ══════════════════════════════════════════════ SKILLS -->
+  <section class="section" id="skills">
+    <div class="container">
+      <span class="section-label" data-i18n="skills.label">{t.skills.label}</span>
+      <h2 class="section-title">
+        <span data-i18n="skills.title1">{t.skills.title1}</span><br/>
+        <em data-i18n="skills.title2">{t.skills.title2}</em>
+      </h2>
+      <div class="skills__grid">
+        <div class="skill-group card">
+          <h3 class="skill-group__title"><span>⚙️</span> Backend</h3>
+          <div class="skill-list">
+            {[['Java Spring',90],['Flutter',80],['Python',70],['Kotlin',65],['C/C++',40]].map(([n,l]) => (
+              <div class="skill-item">
+                <span class="skill-name mono">{n}</span>
+                <div class="skill-bar">
+                  <div class="skill-bar__fill" style={`--target-w:${l}%`}></div>
+                </div>
+                <span class="skill-pct mono">{l}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="skill-group card">
+          <h3 class="skill-group__title"><span>📱</span> Mobile & Frontend</h3>
+          <div class="skill-list">
+            {[['Flutter / Dart',90],['Firebase',80],['Astro',70],['XML',55],['JavaScript',50]].map(([n,l]) => (
+              <div class="skill-item">
+                <span class="skill-name mono">{n}</span>
+                <div class="skill-bar">
+                  <div class="skill-bar__fill" style={`--target-w:${l}%`}></div>
+                </div>
+                <span class="skill-pct mono">{l}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="skill-group card">
+          <h3 class="skill-group__title"><span>🗄️</span> <span data-i18n="skills.data">{t.skills.data}</span></h3>
+          <div class="skill-list">
+            {[['SQL',85],['Firebase',75],['MongoDB',75],['Docker',70],['AWS',65]].map(([n,l]) => (
+              <div class="skill-item">
+                <span class="skill-name mono">{n}</span>
+                <div class="skill-bar">
+                  <div class="skill-bar__fill" style={`--target-w:${l}%`}></div>
+                </div>
+                <span class="skill-pct mono">{l}%</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="skill-group card">
+          <h3 class="skill-group__title"><span>🛠️</span> <span data-i18n="skills.tools">{t.skills.tools}</span></h3>
+          <div class="tags-wrap">
+            {['Git','Linux','Figma','Postman','Jira','Notion','SQL Developer','Kafka','Spring','Java','Batch'].map(tool => (
+              <span class="tag">{tool}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ══════════════════════════════════════════════ PROJECTS -->
+  <section class="section" id="projects">
+    <div class="container">
+      <span class="section-label" data-i18n="projects.label">{t.projects.label}</span>
+      <h2 class="section-title">
+        <span data-i18n="projects.title1">{t.projects.title1}</span><br/>
+        <em data-i18n="projects.title2">{t.projects.title2}</em>
+      </h2>
+      <div class="projects__grid">
+        {[
+          { img: '/images/misintaxis.png',  fallback:'MS', idx:0, tags:['Flutter','Firebase','Python','SQL','GitLab','Google Auth'],  demo:true,  demoUrl:'https://www.misintaxis.com' },
+          { img: '/images/misintaxis-web.png', fallback:'MW', idx:1, tags:['Flutter','Web','Firebase','FCM','OAuth2','JS'],           demo:false, demoUrl:'#' },
+          { img: '/images/timeslearning.png',  fallback:'TL', idx:2, tags:['Flutter','Mobile','Accesibilidad'],                       demo:true,  demoUrl:'https://time2learn7.wordpress.com' },
+          { img: '',          fallback:'💪🏻', idx:3, tags:['Flutter','Firebase','Google Auth'],                       demo:false, demoUrl:'#' },
+        ].map(({ img, fallback, idx, tags, demo, demoUrl }) => (
+          <article class="project-card card">
+            <div class="project-card__header">
+              <div class="project-img-wrap">
+                <img
+                  src={img}
+                  alt=""
+                  class="project-img"
+                  onerror={`this.style.display='none';this.nextElementSibling.style.display='flex'`}
+                />
+                <div class="project-img-fallback" style="display:none">{fallback}</div>
+              </div>
+              <div class="project-links">
+                {demo && (
+                  <a href={demoUrl} target="_blank" rel="noopener" aria-label="Demo">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                      <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </div>
+            <h3 class="project-card__title" data-i18n={`projects.items.${idx}.title`}>{t.projects.items[idx].title}</h3>
+            <p class="project-card__desc" data-i18n={`projects.items.${idx}.desc`}>{t.projects.items[idx].desc}</p>
+            <div class="project-card__tags">{tags.map(tag => <span class="tag">{tag}</span>)}</div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ══════════════════════════════════════════════ EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="container">
+      <span class="section-label" data-i18n="experience.label">{t.experience.label}</span>
+      <h2 class="section-title">
+        <span data-i18n="experience.title1">{t.experience.title1}</span><br/>
+        <em data-i18n="experience.title2">{t.experience.title2}</em>
+      </h2>
+      <div class="timeline">
+        {t.experience.items.map((job, ji) => (
+          <div class="timeline__item">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content card">
+              <div class="timeline__header">
+                <div class="timeline__header-text">
+                  <div class="timeline__meta">
+                    <span class="mono timeline__date" data-i18n={`experience.items.${ji}.date`}>{job.date}</span>
+                    <span class="tag" data-i18n={ji === 3 ? 'experience.intern' : undefined}>
+                      {ji === 3 ? t.experience.intern : 'Full-time'}
+                    </span>
+                  </div>
+                  <h3 class="timeline__role" data-i18n={`experience.items.${ji}.role`}>{job.role}</h3>
+                  <p class="timeline__company" data-i18n={`experience.items.${ji}.company`}>{job.company}</p>
+                </div>
+                <div class="org-logo-wrap">
+                  <img src={expLogos[ji].img} alt="" class="org-logo"
+                    onerror={`this.style.display='none';this.nextElementSibling.style.display='flex'`} />
+                  <div class="org-logo-fallback" style="display:none">{expLogos[ji].fallback}</div>
+                </div>
+              </div>
+              <ul class="timeline__list">
+                {job.bullets.map((b, bi) => (
+                  <li data-i18n={`experience.items.${ji}.bullets.${bi}`}>{b}</li>
+                ))}
+              </ul>
+              <div class="timeline__tags">
+                {ji===0 && <><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">SQL</span><span class="tag">Docker</span></>}
+                {ji===1 && <><span class="tag">Flutter</span><span class="tag">Firebase</span><span class="tag">iOS/Android</span></>}
+                {ji===2 && <><span class="tag">Python</span><span class="tag">DisArm</span><span class="tag">EU4INT</span></>}
+                {ji===3 && <><span class="tag">Java Swing</span><span class="tag">SQL</span></>}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="education">
+        <h3 class="education__title" data-i18n="experience.edu_title">{t.experience.edu_title}</h3>
+        <div class="card education__card">
+          <div class="edu-card-inner">
+            <div class="org-logo-wrap org-logo-wrap--sm">
+              <img src={eduLogos[0].img} alt="" class="org-logo"
+                onerror={`this.style.display='none';this.nextElementSibling.style.display='flex'`} />
+              <div class="org-logo-fallback" style="display:none">{eduLogos[0].fallback}</div>
+            </div>
+            <div>
+              <span class="mono" style="font-size:0.78rem;color:var(--text-muted)">2019 — 2024</span>
+              <h4 data-i18n="experience.edu_degree">{t.experience.edu_degree}</h4>
+              <p style="color:var(--text-muted);margin-top:0.25rem;font-size:0.9rem" data-i18n="experience.edu_school">{t.experience.edu_school}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card education__card" style="margin-top:1rem">
+          <div class="edu-card-inner">
+            <div class="org-logo-wrap org-logo-wrap--sm">
+              <img src={eduLogos[1].img} alt="" class="org-logo"
+                onerror={`this.style.display='none';this.nextElementSibling.style.display='flex'`} />
+              <div class="org-logo-fallback" style="display:none">{eduLogos[1].fallback}</div>
+            </div>
+            <div>
+              <span class="mono" style="font-size:0.78rem;color:var(--text-muted)">2017 — 2019</span>
+              <h4 data-i18n="experience.bach_edu_degree">{t.experience.bach_edu_degree}</h4>
+              <p style="color:var(--text-muted);margin-top:0.25rem;font-size:0.9rem" data-i18n="experience.bach_edu_school">{t.experience.bach_edu_school}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ══════════════════════════════════════════════ CERTIFICATIONS -->
+  <section class="section" id="certifications">
+    <div class="container">
+      <span class="section-label" data-i18n="certs.label">{certs.label}</span>
+      <h2 class="section-title">
+        <span data-i18n="certs.title1">{certs.title1}</span><br/>
+        <em data-i18n="certs.title2">{certs.title2}</em>
+      </h2>
+      <div class="certs__grid">
+        {certs.items.map((cert, ci) => (
+          <div class="cert-card card">
+            <div class="cert-card__header">
+              <span class="cert-icon">{cert.icon}</span>
+              <span class="tag cert-year">{cert.year}</span>
+            </div>
+            <h3 class="cert-title" data-i18n={`certs.items.${ci}.title`}>{cert.title}</h3>
+            <p class="cert-issuer" data-i18n={`certs.items.${ci}.issuer`}>{cert.issuer}</p>
+            {cert.url && (
+              <a href={cert.url} target="_blank" rel="noopener" class="cert-link" data-i18n="certs.verify">
+                {certs.verify} →
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ══════════════════════════════════════════════ CONTACT -->
+  <section class="section" id="contact">
+    <div class="container">
+      <span class="section-label" data-i18n="contact.label">{t.contact.label}</span>
+      <h2 class="section-title">
+        <span data-i18n="contact.title1">{t.contact.title1}</span><br/>
+        <em data-i18n="contact.title2">{t.contact.title2}</em>
+      </h2>
+      <div class="contact__grid">
+        <div class="contact__text">
+          <p data-i18n="contact.text">{t.contact.text}</p>
+          <div class="contact__links">
+            <a href="mailto:2001gon@gmail.com" class="contact-link"><span class="contact-link__icon">✉️</span><span>2001gon@gmail.com</span></a>
+            <a href="https://www.linkedin.com/in/gonzalo-cldm" target="_blank" class="contact-link"><span class="contact-link__icon">💼</span><span>linkedin.com/in/gonzalo-cldm</span></a>
+            <a href="https://github.com/KillerGon01" target="_blank" class="contact-link"><span class="contact-link__icon">🐙</span><span>github.com/KillerGon01</span></a>
+          </div>
+        </div>
+        <form class="contact__form card" id="contactForm">
+          <div class="form-group">
+            <label for="fname" class="mono" data-i18n="contact.label_name">{t.contact.label_name}</label>
+            <input type="text" id="fname" data-i18n-placeholder="contact.ph_name" placeholder={t.contact.ph_name} required />
+          </div>
+          <div class="form-group">
+            <label for="fmsg" class="mono" data-i18n="contact.label_msg">{t.contact.label_msg}</label>
+            <textarea id="fmsg" rows="4" data-i18n-placeholder="contact.ph_msg" placeholder={t.contact.ph_msg} required></textarea>
+          </div>
+            <button type="button" class="btn btn--primary btn--full" id="mailBtn">Enviar mensaje →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+/* ── Hero ── */
+.hero { padding-top: 100px; padding-bottom: 4rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%); pointer-events: none; }
+.hero__inner { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+.hero__greeting { color: var(--accent); font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+.hero__name { font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1.05; margin-bottom: 1rem; }
+.hero__name em { font-style: italic; color: var(--accent); }
+.hero__role { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.25rem; letter-spacing: 0.04em; min-height: 1.4em; }
+.hero__bio { max-width: 480px; color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem; }
+.hero__cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero__visual { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.hero__avatar { width: 160px; height: 160px; border-radius: 24px; border: 2px solid var(--border); background: var(--surface); position: relative; overflow: hidden; }
+.hero__avatar::after { content: ''; position: absolute; inset: 0; border-radius: 24px; border: 2px solid var(--accent); opacity: 0; transition: opacity var(--transition); pointer-events: none; }
+.hero__avatar:hover::after { opacity: 1; }
+.avatar__placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--accent); background: linear-gradient(135deg, var(--surface), var(--bg-card)); }
+.hero__status { display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); } 50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); } }
+.hero__code { margin: 3rem 2rem 0; padding: 1rem 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.82rem; color: var(--text-muted); display: inline-block; }
+.c-kw { color: var(--accent); } .c-str { color: var(--accent-2); } .c-bool { color: #22c55e; }
+
+/* ── Buttons ── */
+.btn { display: inline-block; padding: 0.65rem 1.5rem; border-radius: var(--radius); font-size: 0.88rem; font-weight: 500; cursor: pointer; border: 1.5px solid transparent; text-decoration: none; }
+.btn--primary { background: var(--accent); color: white; border-color: var(--accent); }
+.btn--primary:hover { background: transparent; color: var(--accent); opacity: 1; }
+.btn--ghost { background: transparent; color: var(--text); border-color: var(--border); }
+.btn--ghost:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+.btn--full { width: 100%; text-align: center; }
+
+/* ── About ── */
+.about__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.about__text p { color: var(--text-muted); margin-bottom: 1rem; line-height: 1.7; }
+.about__chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+.about__facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.fact-card { text-align: center; padding: 1.5rem 1rem; }
+.fact-number { display: block; font-size: 2rem; font-weight: 500; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+.fact-label { font-size: 0.78rem; color: var(--text-muted); }
+
+/* ── Skills ── */
+.skills__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.skill-group__title { font-size: 0.95rem; font-weight: 600; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+.skill-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.skill-item { display: flex; align-items: center; gap: 0.75rem; }
+.skill-name { width: 120px; flex-shrink: 0; font-size: 0.78rem; color: var(--text-muted); }
+.skill-bar { flex: 1; height: 4px; background: var(--surface); border-radius: 2px; }
+/* Barras cargan inmediatamente con CSS var, sin esperar JS */
+.skill-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 2px;
+  width: 0;
+  animation: growBar 1s cubic-bezier(0.4,0,0.2,1) 0.5s forwards;
+}
+
+@keyframes growBar {
+  to { width: var(--target-w); }
+}
+.skill-bar__fill.ready {
+  /* width set via JS after IntersectionObserver fires */
+}
+.skill-pct { font-size: 0.7rem; color: var(--text-muted); width: 2.5rem; text-align: right; flex-shrink: 0; }
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+/* ── Projects ── */
+.projects__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.project-card__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; gap: 1rem; }
+
+/* Imagen del proyecto */
+.project-img-wrap { width: 56px; height: 56px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); flex-shrink: 0; }
+.project-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.project-img-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--accent); font-weight: 600; }
+
+.project-links { display: flex; gap: 0.75rem; }
+.project-links a { color: var(--text-muted); display: flex; align-items: center; transition: color var(--transition); }
+.project-links a:hover { color: var(--accent); opacity: 1; }
+.project-card__title { font-size: 1.15rem; margin-bottom: 0.5rem; }
+.project-card__desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+.project-card__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-left: 2rem; margin-bottom: 3rem; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: var(--border); }
+.timeline__item { position: relative; margin-bottom: 1.5rem; }
+.timeline__dot { position: absolute; left: -2rem; top: 1.25rem; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); transform: translateX(-4px); }
+.timeline__meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+.timeline__date { font-size: 0.78rem; color: var(--text-muted); }
+.timeline__role { font-size: 1.05rem; margin-bottom: 0.2rem; }
+.timeline__company { font-size: 0.85rem; color: var(--accent-2); margin-bottom: 0.75rem; }
+.timeline__list { list-style: none; margin-bottom: 0.75rem; }
+.timeline__list li { font-size: 0.875rem; color: var(--text-muted); padding-left: 1rem; position: relative; margin-bottom: 0.3rem; line-height: 1.5; }
+.timeline__list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+.timeline__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.timeline__header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Org logos ── */
+.org-logo-wrap {
+  width: 60px; height: 60px; flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  overflow: hidden;
+}
+.org-logo-wrap--sm { width: 60px; height: 60px; border-radius: 5px; }
+.org-logo { width: 100%; height: 100%; object-fit: contain; display: block; padding: 3px; }
+.org-logo-fallback {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace; font-size: 0.65rem;
+  font-weight: 600; color: var(--accent);
+}
+.edu-card-inner { display: flex; gap: 1rem; align-items: flex-start; }
+.edu-card-inner > div:last-child { flex: 1; }
+
+/* ── Education ── */
+.education__title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-muted); letter-spacing: 0.04em; }
+.education__card h4 { font-family: 'DM Serif Display', serif; font-size: 1.05rem; margin-top: 0.25rem; }
+
+/* ── Contact ── */
+.contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.contact__text p { color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem; }
+.contact__links { display: flex; flex-direction: column; gap: 0.75rem; }
+.contact-link { display: flex; align-items: center; gap: 0.75rem; color: var(--text-muted); font-size: 0.9rem; transition: color var(--transition); }
+.contact-link:hover { color: var(--accent); opacity: 1; }
+.contact-link__icon { font-size: 1.1rem; }
+.form-group { margin-bottom: 1.25rem; }
+.form-group label { display: block; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+.form-group input, .form-group textarea { width: 100%; padding: 0.7rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; transition: border-color var(--transition); resize: vertical; }
+.form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
+
+
+/* ── Certifications ── */
+.certs__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.cert-card { padding: 1.25rem 1.5rem; }
+.cert-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+.cert-icon { font-size: 1.6rem; }
+.cert-year { font-family: 'DM Mono', monospace; font-size: 0.7rem; }
+.cert-title { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; line-height: 1.3; }
+.cert-issuer { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+.cert-link { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--accent); text-decoration: none; transition: opacity var(--transition); }
+.cert-link:hover { opacity: 0.7; }
+@media (max-width: 900px) { .certs__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .certs__grid { grid-template-columns: 1fr; } }
+
+/* ── i18n fade ── */
+[data-i18n], [data-i18n-placeholder] { transition: opacity 0.2s ease; }
+.lang-fade { opacity: 0 !important; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero__inner, .about__grid, .skills__grid, .projects__grid, .contact__grid { grid-template-columns: 1fr; }
+  .hero__visual { display: none; }
+  .about__facts { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) { .hero__name { font-size: 2.8rem; } }
+</style>
+
+<script>
+  /* ══ FORM ══ */
+  document.getElementById('mailBtn')?.addEventListener('click', () => {
+  const name    = (document.getElementById('fname') as HTMLInputElement).value;
+  const message = (document.getElementById('fmsg') as HTMLTextAreaElement).value;
+  const subject = encodeURIComponent('Contacto desde portfolio');
+  const body    = encodeURIComponent(`Hola Gonzalo,\n\nSoy ${name}.\n\n${message}`);
+  window.location.href = `mailto:2001gon@gmail.com?subject=${subject}&body=${body}`;
+});
+</script>
+
+<script>
+  /* ══ I18N ENGINE ══ */
+  const T: Record<string, Record<string, string | string[]>> = {
+    es: {
+      'hero.greeting':'Hola, soy','hero.status':'disponible para trabajo',
+      'hero.bio':'Graduado en Ingeniería Informática, apasionado por el desarrollo mobile, backend y la ciberseguridad. Construyo apps que escalan y código que se entiende.',
+      'hero.cta_primary':'Ver proyectos','hero.cta_ghost':'Contactar',
+      'hero.typing':['Ingeniero Informático','Backend Developer · Java & Spring','Mobile Developer · Flutter','CTO en MiSintaxis','Open to work 🚀'],
+      'about.label':'01 · sobre mí','about.title1':'Un poco de','about.title2':'contexto',
+      'about.p1':'Graduado en Ingeniería Informática con más de 2 años de experiencia desarrollando soluciones de software tanto en backend como en mobile. Me especializo en sistemas distribuidos, APIs RESTful y desarrollo Flutter; aunque también me encanta el mundo de la ciberseguridad y de la IA.',
+      'about.p2':'Me interesa especialmente la intersección entre rendimiento, escalabilidad y experiencia de usuario. Actualmente explorando oportunidades en empresas que apuesten por la ingeniería de calidad.',
+      'about.tags.0':'📍 Madrid/Murcia, España','about.tags.1':'🎓 Ing. Informática','about.tags.2':'🌐 ES / EN','about.tags.3':'🚀 Open to work',
+      'about.facts.0':'años de experiencia','about.facts.1':'proyectos completados','about.facts.2':'tecnologías principales','about.facts.3':'ganas de aprender',
+      'skills.label':'02 · skills','skills.title1':'Stack','skills.title2':'técnico','skills.data':'Datos & Infra','skills.tools':'Herramientas',
+      'projects.label':'03 · proyectos','projects.title1':'Lo que','projects.title2':'he construido',
+      'projects.items.0.title':'MiSintaxis',
+      'projects.items.0.desc':'App mobile (iOS/Android) con toda la teoría y ejercicios de sintaxis española. Desarrollada en Flutter con Firebase, Google Auth, servidor Python/SQL y control de versiones en GitLab.',
+      'projects.items.1.title':'MiSintaxis Teacher Web',
+      'projects.items.1.desc':'Plataforma educativa fullstack en Flutter conectada en tiempo real con la app móvil. Los profesores envían tests, ejercicios y teoría; los alumnos reciben notificaciones vía Firebase Cloud Messaging.',
+      'projects.items.2.title':'TimesLearning',
+      'projects.items.2.desc':'App Android en Flutter para enseñar a leer el reloj, orientada a personas con discapacidad intelectual. Diseño accesible e intuitivo con recursos visuales adaptativos.',
+      'projects.items.3.title':'GymEx',
+      'projects.items.3.desc':'App móvil de seguimiento de entrenamiento con Flutter y Firebase. Autenticación Google, registro de ejercicios, progreso y estadísticas en tiempo real.',
+      'experience.label':'04 · experiencia','experience.title1':'Trayectoria','experience.title2':'profesional','experience.intern':'Parcial',
+      'experience.items.0.date':'2024 — Actualidad','experience.items.0.role':'Backend Software Engineer','experience.items.0.company':'CaixaBank Tech · Madrid (Híbrido)',
+      'experience.items.0.bullets.0':'Diseño y mantenimiento de microservicios en Java con Spring Boot en entorno financiero de alta criticidad',
+      'experience.items.0.bullets.1':'Liderazgo dentro del proyecto de Factoring combinando gestión y desarrollo práctico',
+      'experience.items.0.bullets.2':'Uso de SQL, Docker, OpenAPI/Swagger y programación batch',
+      'experience.items.1.date':'2020 — Actualidad','experience.items.1.role':'CTO & Software Engineer','experience.items.1.company':'Startup MiSintaxis · Murcia',
+      'experience.items.1.bullets.0':'Desarrollo de app Flutter multiplataforma (iOS/Android) y plataforma web para profesores',
+      'experience.items.1.bullets.1':'Integración con Firebase Auth, Firestore, Cloud Messaging, Storage y Hosting',
+      'experience.items.1.bullets.2':'Liderazgo técnico y metodología Gitflow con prototipado previo (Mockup-driven)',
+      'experience.items.2.date':'2023 — 2024','experience.items.2.role':'Graduate Researcher','experience.items.2.company':'Cybersecurity & Data Science Lab · Universidad de Murcia',
+      'experience.items.2.bullets.0':'Investigación sobre ataques de desinformación en redes sociales usando el DisArm Framework',
+      'experience.items.2.bullets.1':'Creación de un framework propio basado en DisArm con web de soporte',
+      'experience.items.2.bullets.2':'Participación activa en el proyecto europeo EU4INT',
+      'experience.items.3.date':'2022 — 2022','experience.items.3.role':'Prácticas Curriculares','experience.items.3.company':'Colegio Santa María de la Paz · Murcia',
+      'experience.items.3.bullets.0':'Desarrollo de software educativo para profesor-alumno con cuestionarios en tiempo real',
+      'experience.items.3.bullets.1':'Cálculo automático de nota y notificación al profesor usando Java Swing',
+      'experience.edu_title':'Formación','experience.edu_degree':'Grado en Ingeniería Informática · Especialidad en Tecnologías de la Información','experience.edu_school':'Universidad de Murcia',
+      'experience.bach_edu_degree':'Bachillerato de Ciencias · Especialidad en Tecnología','experience.bach_edu_school':'Colegio Santa María de la Paz - Jesuitinas',
+      'contact.label':'06 · contacto','contact.title1':'Hablemos','contact.title2':'¿trabajamos juntos?',
+      'contact.text':'Estoy abierto a nuevas oportunidades o simplemente una charla técnica. Si tienes algo interesante en mente, no dudes en escribirme.',
+      'contact.label_name':'nombre','contact.label_email':'email','contact.label_msg':'mensaje',
+      'contact.ph_name':'Tu nombre','contact.ph_msg':'Cuéntame en qué puedo ayudarte...','contact.submit':'Enviar mensaje →',
+      'certs.label':'05 · certificaciones','certs.title1':'Cursos &','certs.title2':'certificaciones','certs.verify':'Ver credencial',
+      'certs.items.0.title':'Certificado profesional de Ciberseguridad de Google','certs.items.0.issuer':'Coursera · Google',
+      'certs.items.1.title':'Curso de Iniciación al Desarrollo con IA','certs.items.1.issuer':'BIG School',
+      'certs.items.2.title':'Hacking Ético y Ciberseguridad','certs.items.2.issuer':'Udemy',
+      'certs.items.3.title':'Spring Boot desde Cero','certs.items.3.issuer':'Udemy',
+      'certs.items.4.title':'Curso de Flutter y Dart','certs.items.4.issuer':'Udemy · Academind',
+      'nav.about':'Sobre mí','nav.skills':'Skills','nav.projects':'Proyectos','nav.experience':'Experiencia','nav.certs':'Certs','nav.contact':'Contacto',
+      'footer.copy':'© 2025 Gonzalo · Hecho con Astro',
+    },
+    en: {
+      'hero.greeting':"Hi, I'm",'hero.status':'available for work',
+      'hero.bio':'Computer Engineering graduate passionate about mobile development, backend systems and cybersecurity. I build apps that scale and code that lasts.',
+      'hero.cta_primary':'View projects','hero.cta_ghost':'Get in touch',
+      'hero.typing':['Computer Engineer','Backend Developer · Java & Spring','Mobile Developer · Flutter','CTO at MiSintaxis','Open to work 🚀'],
+      'about.label':'01 · about me','about.title1':'A bit of','about.title2':'context',
+      'about.p1':'Computer Engineering graduate with 2+ years of professional experience building backend and mobile software. I specialise in RESTful APIs, Flutter development and distributed systems — with a growing interest in cybersecurity and AI.',
+      'about.p2':"I'm particularly interested in the intersection of performance, scalability and user experience. Currently exploring opportunities at companies that bet on engineering quality.",
+      'about.tags.0':'📍 Madrid/Murcia, Spain','about.tags.1':'🎓 Computer Engineering','about.tags.2':'🌐 ES / EN','about.tags.3':'🚀 Open to work',
+      'about.facts.0':'years of experience','about.facts.1':'projects completed','about.facts.2':'core technologies','about.facts.3':'eagerness to learn',
+      'skills.label':'02 · skills','skills.title1':'Tech','skills.title2':'stack','skills.data':'Data & Infra','skills.tools':'Tools',
+      'projects.label':'03 · projects','projects.title1':'Things','projects.title2':"I've built",
+      'projects.items.0.title':'MiSintaxis',
+      'projects.items.0.desc':'Cross-platform mobile app (iOS/Android) covering Spanish syntax theory and exercises. Built with Flutter, Firebase, Google Auth and a Python/SQL backend. Version-controlled on GitLab.',
+      'projects.items.1.title':'MiSintaxis Teacher Web',
+      'projects.items.1.desc':'Full-stack educational platform in Flutter connected in real time to the mobile app. Teachers send tests, exercises and theory; students receive push notifications via Firebase Cloud Messaging.',
+      'projects.items.2.title':'TimesLearning',
+      'projects.items.2.desc':'Android app built with Flutter to teach clock reading, aimed at people with intellectual disabilities. Accessible, intuitive design with adaptive visual resources.',
+      'projects.items.3.title':'GymEx',
+      'projects.items.3.desc':'Workout tracking mobile app with Flutter and Firebase. Google authentication, exercise logging, progress tracking and real-time statistics.',
+      'experience.label':'04 · experience','experience.title1':'Professional','experience.title2':'journey','experience.intern':'Part-time',
+      'experience.items.0.date':'2024 — Present','experience.items.0.role':'Backend Software Engineer','experience.items.0.company':'CaixaBank Tech · Madrid (Hybrid)',
+      'experience.items.0.bullets.0':'Design and maintenance of Java Spring Boot microservices in a high-criticality financial environment',
+      'experience.items.0.bullets.1':'Technical leadership on the Factoring project, combining management with hands-on development',
+      'experience.items.0.bullets.2':'Working with SQL, Docker, OpenAPI/Swagger and batch processing',
+      'experience.items.1.date':'2020 — Present','experience.items.1.role':'CTO & Software Engineer','experience.items.1.company':'MiSintaxis Startup · Murcia',
+      'experience.items.1.bullets.0':'Built a cross-platform Flutter app (iOS/Android) and a real-time teacher web platform',
+      'experience.items.1.bullets.1':'Firebase integration: Auth, Firestore, Cloud Messaging, Storage and Hosting',
+      'experience.items.1.bullets.2':'Technical leadership applying Gitflow and Mockup-driven development',
+      'experience.items.2.date':'2023 — 2024','experience.items.2.role':'Graduate Researcher','experience.items.2.company':'Cybersecurity & Data Science Lab · University of Murcia',
+      'experience.items.2.bullets.0':'Research on disinformation attacks in social networks using the DisArm Framework',
+      'experience.items.2.bullets.1':'Built a custom framework based on DisArm with a supporting web interface',
+      'experience.items.2.bullets.2':'Active participation in the EU4INT European project',
+      'experience.items.3.date':'2022 — 2022','experience.items.3.role':'Curricular Internship','experience.items.3.company':'Colegio Santa María de la Paz · Murcia',
+      'experience.items.3.bullets.0':'Developed educational software for real-time teacher–student quizzes',
+      'experience.items.3.bullets.1':'Automatic grade calculation and teacher notifications using Java Swing',
+      'experience.edu_title':'Education','experience.edu_degree':'BSc Computer Engineering · Information Technologies','experience.edu_school':'Universidad de Murcia',
+      'experience.bach_edu_degree':'Science A-levels · Technology specialisation','experience.bach_edu_school':'Colegio Santa María de la Paz - Jesuitinas',
+      'contact.label':'06 · contact','contact.title1':"Let's talk",'contact.title2':'shall we work together?',
+      'contact.text':"I'm open to new opportunities or just a good technical chat. If you have something interesting in mind, feel free to reach out.",
+      'contact.label_name':'name','contact.label_email':'email','contact.label_msg':'message',
+      'contact.ph_name':'Your name','contact.ph_msg':'Tell me how I can help...','contact.submit':'Send message →',
+      'certs.label':'05 · certifications','certs.title1':'Courses &','certs.title2':'certifications','certs.verify':'View credential',
+      'certs.items.0.title':'Google Cybersecurity Professional Certificate','certs.items.0.issuer':'Coursera · Google',
+      'certs.items.1.title':'Introduction to AI-Driven Development','certs.items.1.issuer':'BIG School',
+      'certs.items.2.title':'Ethical Hacking & Cybersecurity','certs.items.2.issuer':'Udemy',
+      'certs.items.3.title':'Spring Boot from Scratch','certs.items.3.issuer':'Udemy',
+      'certs.items.4.title':'Flutter & Dart Course','certs.items.4.issuer':'Udemy · Academind',
+      'nav.about':'About me','nav.skills':'Skills','nav.projects':'Projects','nav.experience':'Experience','nav.certs':'Certs','nav.contact':'Contact',
+      'footer.copy':'© 2025 Gonzalo · Built with Astro',
+    },
+  };
+
+  type Lang = 'es' | 'en';
+  let lang: Lang = (localStorage.getItem('lang') as Lang) || 'es';
+  let typingPhrases: string[] = T[lang]['hero.typing'] as string[];
+
+  document.documentElement.setAttribute('data-lang', lang);
+  setLangBtn(lang);
+
+  function setLangBtn(l: Lang) {
+    const btn = document.getElementById('langToggle');
+    if (btn) btn.textContent = l === 'es' ? 'EN' : 'ES';
+  }
+
+  function applyLang(l: Lang) {
+    const dict = T[l];
+    document.querySelectorAll('[data-i18n], [data-i18n-placeholder]').forEach(el => el.classList.add('lang-fade'));
+    setTimeout(() => {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n')!;
+        const val = dict[key];
+        if (typeof val === 'string') el.textContent = val;
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder')!;
+        const val = dict[key];
+        if (typeof val === 'string') (el as HTMLInputElement).placeholder = val;
+      });
+      document.querySelectorAll('[data-i18n-nav]').forEach(el => {
+        const key = el.getAttribute('data-i18n-nav')!;
+        const val = dict[key];
+        if (typeof val === 'string') el.textContent = val;
+      });
+      document.documentElement.setAttribute('lang', l);
+      document.documentElement.setAttribute('data-lang', l);
+      typingPhrases = dict['hero.typing'] as string[];
+      restartTyping();
+      document.querySelectorAll('[data-i18n], [data-i18n-placeholder]').forEach(el => el.classList.remove('lang-fade'));
+    }, 200);
+  }
+
+  document.getElementById('langToggle')?.addEventListener('click', () => {
+    lang = lang === 'es' ? 'en' : 'es';
+    localStorage.setItem('lang', lang);
+    setLangBtn(lang);
+    applyLang(lang);
+  });
+
+  /* ══ TYPING ══ */
+  const typingEl = document.getElementById('typingText');
+  let pIdx = 0, cIdx = 0, deleting = false, paused = false;
+  let tTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function tick() {
+    if (!typingEl || paused) return;
+    const cur = typingPhrases[pIdx % typingPhrases.length];
+    if (!deleting) {
+      typingEl.textContent = cur.slice(0, ++cIdx);
+      if (cIdx === cur.length) { paused = true; tTimer = setTimeout(() => { deleting = true; paused = false; tick(); }, 1800); return; }
+      tTimer = setTimeout(tick, 55);
+    } else {
+      typingEl.textContent = cur.slice(0, --cIdx);
+      if (cIdx === 0) { deleting = false; pIdx = (pIdx + 1) % typingPhrases.length; paused = true; tTimer = setTimeout(() => { paused = false; tick(); }, 400); return; }
+      tTimer = setTimeout(tick, 30);
+    }
+  }
+
+  function restartTyping() {
+    if (tTimer) clearTimeout(tTimer);
+    if (typingEl) typingEl.textContent = '';
+    pIdx = 0; cIdx = 0; deleting = false; paused = false;
+    tTimer = setTimeout(tick, 300);
+  }
+
+  setTimeout(tick, 900);
+
+  /* ══ SKILL BARS — animate on scroll ══ */
+  /* skill bar observer is in Layout.astro */
+</script>
